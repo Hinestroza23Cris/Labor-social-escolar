@@ -1,0 +1,6 @@
+**
+!Dockerfile
+!database/
+!database/Dockerfile
+!database/01-schema.sql
+!database/02-demo.sql

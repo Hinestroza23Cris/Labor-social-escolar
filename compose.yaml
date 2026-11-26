@@ -1,0 +1,32 @@
+services:
+  db:
+    build:
+      context: .
+      dockerfile: database/Dockerfile
+    environment:
+      MARIADB_ROOT_PASSWORD: labor_root_local
+      MARIADB_DATABASE: labor_social
+      MARIADB_USER: labor_app
+      MARIADB_PASSWORD: labor_app_local
+    volumes:
+      - datos:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+  web:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_USER: labor_app
+      DB_PASSWORD: labor_app_local
+    ports:
+      - "127.0.0.1:${LABOR_WEB_PORT:-3000}:3000"
+    volumes:
+      - ./:/app:ro
+volumes:
+  datos:

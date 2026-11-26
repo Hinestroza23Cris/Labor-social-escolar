@@ -1,0 +1,47 @@
+digraph LaborSocial {
+    graph [rankdir=LR, bgcolor="#f3f6f4", pad=0.4, nodesep=0.40, ranksep=0.85,
+           label="MODELO ENTIDAD–RELACIÓN  ·  LABOR SOCIAL ESCOLAR", labelloc=t,
+           fontsize=22, fontname="DejaVu Sans Bold", fontcolor="#173a2b"];
+    node [shape=plain, fontname="DejaVu Sans", fontsize=13, fontcolor="#173a2b"];
+    edge [color="#477657", fontcolor="#173a2b", fontname="DejaVu Sans", fontsize=13, dir=both];
+
+    proyectos [label=<
+      <TABLE BORDER="1" CELLBORDER="0" CELLPADDING="9" COLOR="#6e9980" BGCOLOR="#ffffff">
+        <TR><TD BGCOLOR="#cce8d5"><B>PROYECTOS</B></TD></TR>
+        <TR><TD ALIGN="LEFT"><B>PK</B>  id</TD></TR>
+        <TR><TD ALIGN="LEFT">nombre (único)</TD></TR>
+        <TR><TD ALIGN="LEFT">descripcion</TD></TR>
+      </TABLE>>];
+    estudiantes [label=<
+      <TABLE BORDER="1" CELLBORDER="0" CELLPADDING="9" COLOR="#6e9980" BGCOLOR="#ffffff">
+        <TR><TD BGCOLOR="#cce8d5"><B>ESTUDIANTES</B></TD></TR>
+        <TR><TD ALIGN="LEFT"><B>PK</B>  id</TD></TR>
+        <TR><TD ALIGN="LEFT">documento (único)</TD></TR>
+        <TR><TD ALIGN="LEFT">nombre</TD></TR>
+        <TR><TD ALIGN="LEFT">grado (10 u 11)</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>FK</B>  proyecto_id</TD></TR>
+      </TABLE>>];
+    docentes [label=<
+      <TABLE BORDER="1" CELLBORDER="0" CELLPADDING="9" COLOR="#6e9980" BGCOLOR="#ffffff">
+        <TR><TD BGCOLOR="#cce8d5"><B>DOCENTES</B></TD></TR>
+        <TR><TD ALIGN="LEFT"><B>PK</B>  id</TD></TR>
+        <TR><TD ALIGN="LEFT">documento (único)</TD></TR>
+        <TR><TD ALIGN="LEFT">nombre</TD></TR>
+        <TR><TD ALIGN="LEFT">correo</TD></TR>
+      </TABLE>>];
+    actividades [label=<
+      <TABLE BORDER="1" CELLBORDER="0" CELLPADDING="9" COLOR="#6e9980" BGCOLOR="#ffffff">
+        <TR><TD BGCOLOR="#cce8d5"><B>ACTIVIDADES</B></TD></TR>
+        <TR><TD ALIGN="LEFT"><B>PK</B>  id</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>FK</B>  estudiante_id</TD></TR>
+        <TR><TD ALIGN="LEFT"><B>FK</B>  docente_id</TD></TR>
+        <TR><TD ALIGN="LEFT">fecha</TD></TR>
+        <TR><TD ALIGN="LEFT">horas (decimal)</TD></TR>
+        <TR><TD ALIGN="LEFT">trabajo</TD></TR>
+      </TABLE>>];
+
+    proyectos -> estudiantes [arrowtail=teetee, arrowhead=crowodot, label="  1 a N  "];
+    estudiantes -> actividades [arrowtail=teetee, arrowhead=crowodot, label="  1 a N  "];
+    docentes -> actividades [arrowtail=teetee, arrowhead=crowodot, label="  1 a N  "];
+    {rank=same; estudiantes; docentes;}
+}
